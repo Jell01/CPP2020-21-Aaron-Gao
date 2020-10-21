@@ -13,7 +13,7 @@ class Media {
   void setYear(int newYear);
   char* getTitle();
   void setTitle(char* newTitle);
-
+  virtual int getType();
  private:
   int year;
   char title[80];

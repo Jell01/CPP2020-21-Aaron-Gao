@@ -20,3 +20,7 @@ int Game::getRating(){
 void Game::setRating(int newRating){
   rating = newRating;
 }
+
+int Game::getType(){
+  return 0;
+}

@@ -2,21 +2,21 @@
 #include <cstring>
 #include "Media.h"
 
-#ifndef GAME_H
-#define GAME_H
+#ifndef MUSIC_H
+#define MUSIC_H
 
 using namespace std;
 
-class Game : public Media{
+class Music : public Media{
  public:
+  int getDuration();
+  void setDuration(int newDuration);
   char* getPublisher();
   void setPublisher(char* newPublisher);
-  int getRating();
-  void setRating(int newRating);
   int getType();
  private:
-  int rating;
-  char publisher[80];
+  int duration;
+  char* publisher;
 
 };
 #endif

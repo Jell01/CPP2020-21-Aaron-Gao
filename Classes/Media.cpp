@@ -21,3 +21,6 @@ void Media::setTitle(char* newTitle){
 }
 
 
+virtual int Media::getType(){//game:0, music:1, Movie:2
+  cout << "Something went wrong" <<endl;
+}
