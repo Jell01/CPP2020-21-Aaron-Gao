@@ -17,7 +17,7 @@ char* Music::getPubliser(){
 }
 
 void Music::setPublisher(char* newPublisher){
-  publisher = newPublisher;
+  strcpy(publisher, newPublisher);
 }
 
 int Music::getType(){
