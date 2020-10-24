@@ -17,10 +17,11 @@ char* Media::getTitle(){
 }
 
 void Media::setTitle(char* newTitle){
-  title = newTitle;
+  strcpy(title, newTitle);
 }
 
 
-virtual int Media::getType(){//game:0, music:1, Movie:2
+int Media::getType(){//game:0, music:1, Movie:2
   cout << "Something went wrong" <<endl;
+  return -1;
 }
