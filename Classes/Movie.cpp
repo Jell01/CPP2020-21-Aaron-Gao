@@ -10,7 +10,7 @@ char* Movie::getDirector(){
 }
 
 void Movie::setDirector(char* newDirector){
-  director = newDirector;
+  strcpy(director, newDirector);
 }
 
 int Movie::getDuration(){
