@@ -124,7 +124,6 @@ void search(vector<Media*> &yourMedia){//this function allows the user to search
     cout << "what title would you like to search for?" << endl;
     cin >> title;
     for(it = yourMedia.begin();it < yourMedia.end();it++){
-      //searchTitle = ((*it)->getTitle());
       if(strcmp((*it)->getTitle(), title) == 0){
 	if((*it)->getType() == 0){//game
 	  cout << "Game, " << title << ": " << ((*it)->getYear()) << ", " << ((Game*)(*it))->getPublisher() << ", " << ((Game*)(*it))->getRating() << endl;
@@ -142,7 +141,6 @@ void search(vector<Media*> &yourMedia){//this function allows the user to search
     cout << "what year would you like to search for?" << endl;
     cin >> year;
     for(it = yourMedia.begin();it < yourMedia.end();it++){
-      //searchTitle = ((*it)->getTitle());
       if(year == (*it)->getYear()){//game
 	if((*it)->getType() == 0){
 	  cout << "Game, " << ((*it)->getTitle()) << ": " << ((*it)->getYear()) << ", " << ((Game*)(*it))->getPublisher() << ", " << ((Game*)(*it))->getRating() << endl;
@@ -168,7 +166,7 @@ void DELETE(vector<Media*> &yourMedia){//this function allows the user to delete
   char reply[81];
   cout << "would you like to delete by TITLE or YEAR?" << endl;
   cin >> method;
-  if(strcmp(method, "TITLE") == 0){
+  if(strcmp(method, "TITLE") == 0){//if they would like to delete by title
     char title[81];
     int count = -1;
     cout << "what is the title of the thing you'd like to delete?" << endl;
@@ -180,7 +178,7 @@ void DELETE(vector<Media*> &yourMedia){//this function allows the user to delete
 	  cout << "Game, " << ((*it)->getTitle()) << ": " << ((*it)->getYear()) << ", " << ((Game*)(*it))->getPublisher() << ", " << ((Game*)(*it))->getRating() << endl;
 	  cout << "would you like to delete this Game? YES or NO?" << endl;
 	  cin >> reply;
-	  if(strcmp(reply, "YES") == 0){
+	  if(strcmp(reply, "YES") == 0){//confirm if the user wants to delete
 	    yourMedia.erase(yourMedia.begin()+count);
 	    break;
 	  }else if(strcmp(reply, "NO") == 0){
@@ -194,7 +192,7 @@ void DELETE(vector<Media*> &yourMedia){//this function allows the user to delete
 	  cout << ((Music*)(*it))->getArtist() << ", " << ((Music*)(*it))->getDuration() << ", " << ((Music*)(*it))->getPublisher() << endl;
 	  cout << "would you like to delete this Music? YES or NO?" << endl;
 	  cin >> reply;
-	  if(strcmp(reply, "YES") == 0){
+	  if(strcmp(reply, "YES") == 0){//confirm if the user wants to delete
             yourMedia.erase(yourMedia.begin()+count);
             break;
           }else if(strcmp(reply, "NO") == 0){
@@ -209,7 +207,7 @@ void DELETE(vector<Media*> &yourMedia){//this function allows the user to delete
 	  cout << ", " << ((Movie*)(*it))->getDuration() << ", " << ((Movie*)(*it))->getRating() << endl;
 	  cout << "would you like to delete this Movie? YES or NO?" << endl;
           cin >> reply;
-          if(strcmp(reply, "YES") == 0){
+          if(strcmp(reply, "YES") == 0){//confirm if the user wants to delete
             yourMedia.erase(yourMedia.begin()+count);
             break;
           }else if(strcmp(reply, "NO") == 0){
@@ -222,7 +220,7 @@ void DELETE(vector<Media*> &yourMedia){//this function allows the user to delete
 	}
       }
     }
-  }else if(strcmp(method, "YEAR") == 0){
+  }else if(strcmp(method, "YEAR") == 0){//delete by year
     int year;
     int count = -1;
     cout << "what is the year of the thing you'd like to delete?" << endl;
@@ -234,7 +232,7 @@ void DELETE(vector<Media*> &yourMedia){//this function allows the user to delete
 	  cout << "Game, " << ((*it)->getTitle()) << ": " << ((*it)->getYear()) << ", " << ((Game*)(*it))->getPublisher() << ", " << ((Game*)(*it))->getRating() << endl;
 	  cout << "would you like to delete this Game? YES or NO?" << endl;
 	  cin >> reply;
-	  if(strcmp(reply, "YES") == 0){
+	  if(strcmp(reply, "YES") == 0){//confirm if the user wants to delete
 	    yourMedia.erase(yourMedia.begin()+count);
 	    break;
 	  }else if(strcmp(reply, "NO") == 0){
@@ -248,7 +246,7 @@ void DELETE(vector<Media*> &yourMedia){//this function allows the user to delete
 	  cout << ((Music*)(*it))->getArtist() << ", " << ((Music*)(*it))->getDuration() << ", " << ((Music*)(*it))->getPublisher() << endl;
 	  cout << "would you like to delete this Music? YES or NO?" << endl;
 	  cin >> reply;
-	  if(strcmp(reply, "YES") == 0){
+	  if(strcmp(reply, "YES") == 0){//confirm if the user wants to delete
 	    yourMedia.erase(yourMedia.begin()+count);
 	    break;
 	  }else if(strcmp(reply, "NO") == 0){
@@ -263,7 +261,7 @@ void DELETE(vector<Media*> &yourMedia){//this function allows the user to delete
 	  cout << ", " << ((Movie*)(*it))->getDuration() << ", " << ((Movie*)(*it))->getRating() << endl;
 	  cout << "would you like to delete this Movie? YES or NO?" << endl;
 	  cin >> reply;
-	  if(strcmp(reply, "YES") == 0){
+	  if(strcmp(reply, "YES") == 0){//confirm if the user wants to delete
 	    yourMedia.erase(yourMedia.begin()+count);
 	    break;
 	  }else if(strcmp(reply, "NO") == 0){

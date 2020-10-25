@@ -9,6 +9,7 @@ using namespace std;
 
 class Movie : public Media {
 
+  //function prototypes
  public:
   char* getDirector();
   void setDirector(char* newDirector);
@@ -17,7 +18,8 @@ class Movie : public Media {
   int getRating();
   void setRating(int newRating);
   int getType();
-  
+
+  //initialization
  private:
   char director[80];
   int duration;
