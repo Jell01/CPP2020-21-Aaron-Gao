@@ -8,6 +8,7 @@
 using namespace std;
 
 class Music : public Media{
+  //function prototype
  public:
   char* getArtist();
   void setArtist(char* newArtist);
@@ -16,6 +17,8 @@ class Music : public Media{
   char* getPublisher();
   void setPublisher(char* newPublisher);
   int getType();
+ 
+  //initialization
  private:
   char artist[81];
   int duration;
