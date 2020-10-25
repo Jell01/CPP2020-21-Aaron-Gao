@@ -19,7 +19,7 @@ int main(){
   char command[10];
   bool keepGoing = true;
   while(keepGoing){
-    cout << "please type in one of the following commands: ADD, SEARCH, PRINT, DELETE, or QUIT" <<endl;
+    cout << "please type in one of the following commands: ADD, SEARCH, DELETE, or QUIT" <<endl;
     cin>>command;
     if(strcmp(command, "ADD") == 0){
       add(allMedia);
@@ -135,6 +135,22 @@ void search(vector<Media*> &yourMedia){
     int year;
     cout << "what year would you like to search for?" << endl;
     cin >> year;
+    for(it = yourMedia.begin();it < yourMedia.end();it++){
+      //searchTitle = ((*it)->getTitle());
+      if(year == (*it)->getYear()){//game
+	if((*it)->getType() == 0){
+	  cout << "Game, " << ((*it)->getTitle()) << ": " << ((*it)->getYear()) << ", " << ((Game*)(*it))->getPublisher() << ", " << ((Game*)(*it))->getRating() << endl;
+	}else if((*it)->getType() == 1){//music
+	  cout << "Music, " << ((*it)->getTitle()) << ": " << ((*it)->getYear()) << ", ";
+	  cout << ((Music*)(*it))->getArtist() << ", " << ((Music*)(*it))->getDuration() << ", " << ((Music*)(*it))->getPublisher() << endl;
+	}else if((*it)->getType() == 2){//movie
+	  cout << "Movie, " << ((*it)->getTitle()) << ": " << ((*it)->getYear()) << ", " << ((Movie*)(*it))->getDirector();
+	  cout << ", " << ((Movie*)(*it))->getDuration() << ", " << ((Movie*)(*it))->getRating() << endl;
+	}
+
+      }
+
+    }
   }else{
     cout << "that is not a valid search method, make sure you type in uppercase" << endl;
   }
