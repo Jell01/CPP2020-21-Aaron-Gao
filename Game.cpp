@@ -10,7 +10,7 @@ char* Game::getPublisher(){
 }
 
 void Game::setPublisher(char* newPublisher){
-  publisher = newPublisher;
+  strcpy(publisher, newPublisher);
 }
 
 int Game::getRating(){

@@ -5,6 +5,12 @@
 
 using namespace std;
 
+char* Music::getArtist(){
+  return artist;
+}
+void Music::setArtist(char* newArtist){
+  strcpy(artist, newArtist);
+}
 int Music::getDuration(){
   return duration;
 }
@@ -12,12 +18,12 @@ int Music::getDuration(){
 void Music::setDuration(int newDuration){
   duration = newDuration;
 }
-char* Music::getPubliser(){
+char* Music::getPublisher(){
   return publisher;
 }
 
 void Music::setPublisher(char* newPublisher){
-  publisher = newPublisher;
+  strcpy(publisher, newPublisher);
 }
 
 int Music::getType(){
