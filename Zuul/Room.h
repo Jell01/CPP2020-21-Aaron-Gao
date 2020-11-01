@@ -11,15 +11,16 @@ using namespace std;
 
 class Room{
  public:
-  Room* getNorth(Room* newRoom);
-  Room* getSouth(Room* newRoom);
-  Room* getEast(Room* newRoom);
-  Room* getWest(Room* newRoom);
-  char* getName(Room* newRoom);
-  char* getItems(vector<char*> newItems);
-  char* getDescription(Room* newRoom);
+  char* getName();
+  void setName(char* newName);
+  vector<char*>* getItems();
+  void addItem(char* itemName);
+  char* getDescription();
+  void setDescription(char* newDesc);
+  map<const char*, Room*>* getMap();
+  void addExit(const char* direction, Room* newRoom);
  private:
-  map<char*, Room*> exits;
+  map<const char*, Room*> exits;
   char name[80];
   vector<char*> items;
   char description[1000];

@@ -1,0 +1,145 @@
+#include <iostream>
+#include <map>
+#include <iterator>
+#include <cstring>
+#include <vector>
+#include "Room.h"
+
+using namespace std;
+
+int main(){
+  Room* bedroom = new Room();
+  bedroom->setName((char*)"a bedroom");
+  bedroom->addItem((char*)"apple");
+  bedroom->setDescription((char*)"It's just a normal bedroom");
+  Room* ramenStall = new Room();
+  ramenStall->setName((char*)"a ramen stall");
+  ramenStall->addItem((char*)"bowl");
+  ramenStall->setDescription((char*)"The ramen here is supposed to be good");
+  Room* gym = new Room();
+  gym->setName((char*)"the gym");
+  gym->setDescription((char*)"You should come here if you want to work out");
+  Room* zoo = new Room();
+  zoo->setName((char*)"a zoo");
+  zoo->setDescription((char*)"The animals here are pretty cool");
+  Room* lab = new Room();
+  lab->setName((char*)"a lab");
+  lab->addItem((char*)"vial");
+  lab->setDescription((char*)"You should stay away from the chemicals");
+  Room* er = new Room();
+  er->setName((char*)"the emergency room");
+  er->setDescription((char*)"someone might get saved here");
+  Room* inglenook = new Room();
+  inglenook->setName((char*)"a inglenook");
+  inglenook->setDescription((char*)"the fireplace here is really warm");
+  Room* disco = new Room();
+  disco->setName((char*)"a disco room");
+  disco->setDescription((char*)"people don't come here much");
+  Room* compLab = new Room();
+  compLab->setName((char*)"a computer lab");
+  compLab->setDescription((char*)"people program here a lot");
+  Room* livingRoom = new Room();
+  livingRoom->setName((char*)"a living room");
+  livingRoom->setDescription((char*)"it looks comfortable");
+  Room* inBeach = new Room();
+  inBeach->setName((char*)"an indoor beach");
+  inBeach->addItem((char*)"umbrella");
+  inBeach->setDescription((char*)"its pretty warm here");
+  Room* medRoom = new Room();
+  medRoom->setName((char*)"a media room");
+  medRoom->setDescription((char*)"the TV in the front is pretty big");
+  Room* courtRoom = new Room();
+  courtRoom->setName((char*)"a court room");
+  courtRoom->setDescription((char*)"luckily it isn't in session right now");
+  Room* attic = new Room();
+  attic->setName((char*)"an attic");
+  attic->addItem((char*)"gavel");
+  attic->setDescription((char*)"It's pretty dusty up here");
+  Room* pool = new Room();
+  pool->setName((char*)"a pool");
+  pool->setDescription((char*)"you got yourself wet! Luckily you can dry off");
+
+  bedroom->addExit("NORTH", ramenStall);
+  bedroom->addExit("SOUTH", gym);
+  bedroom->addExit("EAST", disco);
+  lab->addExit("SOUTH", lab);
+  ramenStall->addExit("NORTH", lab);
+  ramenStall->addExit("SOUTH", bedroom);
+  ramenStall->addExit("WEST", inBeach);
+  gym->addExit("NORTH", bedroom);
+  gym->addExit("WEST", pool);
+  gym->addExit("SOUTH", zoo);
+  zoo->addExit("NORTH", gym);
+  zoo->addExit("SOUTH", er);
+  inglenook->addExit("WEST", er);
+  er->addExit("NORTH", zoo);
+  er->addExit("EAST", inglenook);
+  disco->addExit("WEST", bedroom);
+  disco->addExit("EAST", compLab);
+  compLab->addExit("WEST", disco);
+  compLab->addExit("NORTH", livingRoom);
+  livingRoom->addExit("SOUTH", compLab);
+  inBeach->addExit("EAST", ramenStall);
+  inBeach->addExit("WEST", medRoom);
+  medRoom->addExit("EAST", inBeach);
+  medRoom->addExit("SOUTH", courtRoom);
+  courtRoom->addExit("NORTH", medRoom);
+  courtRoom->addExit("SOUTH", attic);
+  attic->addExit("NORTH", courtRoom);
+  attic->addExit("EAST", pool);
+  pool->addExit("WEST", attic);
+  pool->addExit("EAST", gym);
+
+  Room* currRoom = bedroom;
+  bool keepGoing = true;
+  while(keepGoing){
+    cout << "you are in " << currRoom->getName() << endl;
+    cout << "Items: ";
+    vector<char*> inventory;
+    char nextDir[80];
+    for(vector<char*>::iterator it = currRoom->getItems()->begin();it < currRoom->getItems()->end();it++){
+      cout << *(*it) << " ";
+    }
+    cout << endl;
+    cout << currRoom->getDescription() << endl;
+    int curPos = -1;
+    for(vector<char*>::iterator it = currRoom->getItems()->begin();it < currRoom->getItems()->end();it++){
+      curPos++;
+      char answer[80];
+      cout << "would you like to pick up: " << (*it) << "(Y/N)";
+      cin >> answer;
+      if(strcmp(answer, "Y") == 0){
+	inventory.push_back((*it));
+        currRoom->getItems()->erase(it);
+	break;
+      }else if(strcmp(answer, "N") == 0){
+	continue;
+      }else{
+	cout << "that is not a valid command, make sure you typed 'Y' or 'N'" << endl;
+	cout << "leave the room and come back to attempt to pick it up again" << endl;
+      }
+    }
+    if(inventory.size() > 0){
+      char drop[80];
+      curPos = -1;
+      for(vector<char*>::iterator it = inventory.begin(); it < inventory.end(); it++){
+	curPos++;
+	cout << "would you like to drop your " << *it << "? (Y/N)" << endl;
+	cin>> drop;
+	if(strcmp(drop, "Y") == 0){
+	  currRoom->getItems()->push_back(*it);
+	  inventory.erase(it);
+	}
+      }
+    }
+    cout << "Exits are: " << endl;
+    for(map<const char*, Room*>::iterator it  = currRoom->getMap()->begin(); it != currRoom->getMap()->end(); it++){
+      cout <<it->first << ", " << it->second->getName() << endl;
+    }
+    cout << "where would you like to go?" << endl;
+    cin >> nextDir;
+    
+    
+  }
+  return 0;
+}
