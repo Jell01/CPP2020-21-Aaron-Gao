@@ -8,6 +8,7 @@
 using namespace std;
 
 int main(){
+  //room initialization
   Room* bedroom = new Room();
   bedroom->setName((char*)"a bedroom");
   bedroom->addItem((char*)"apple");
@@ -59,10 +60,11 @@ int main(){
   pool->setName((char*)"a pool");
   pool->setDescription((char*)"you got yourself wet! Luckily you can dry off");
 
+  //exit initialization
   bedroom->addExit("NORTH", ramenStall);
   bedroom->addExit("SOUTH", gym);
   bedroom->addExit("EAST", disco);
-  lab->addExit("SOUTH", lab);
+  lab->addExit("SOUTH", ramenStall);
   ramenStall->addExit("NORTH", lab);
   ramenStall->addExit("SOUTH", bedroom);
   ramenStall->addExit("WEST", inBeach);
@@ -90,25 +92,29 @@ int main(){
   pool->addExit("WEST", attic);
   pool->addExit("EAST", gym);
 
+  //other initialization
   Room* currRoom = bedroom;
   bool keepGoing = true;
-  while(keepGoing){
+  vector<char*> inventory;
+  char nextDir[80];
+  while(keepGoing){//keep going while the user hasn't quit or won the game
+
+    //print the room and items in the room
     cout << "you are in " << currRoom->getName() << endl;
-    cout << "Items: ";
-    vector<char*> inventory;
-    char nextDir[80];
-    for(vector<char*>::iterator it = currRoom->getItems()->begin();it < currRoom->getItems()->end();it++){
-      cout << *(*it) << " ";
+    cout << "Items in the room: ";
+    for(vector<char*>::iterator it = currRoom->getItems()->begin();it < currRoom->getItems()->end();it++){//loop through the items in the current room and print them
+      cout << (*it) << " ";
     }
     cout << endl;
-    cout << currRoom->getDescription() << endl;
+    cout << currRoom->getDescription() << endl;//print the description
     int curPos = -1;
-    for(vector<char*>::iterator it = currRoom->getItems()->begin();it < currRoom->getItems()->end();it++){
+    
+    for(vector<char*>::iterator it = currRoom->getItems()->begin();it < currRoom->getItems()->end();it++){//loop through the items in the room and ask if they would like to pick it up
       curPos++;
       char answer[80];
-      cout << "would you like to pick up: " << (*it) << "(Y/N)";
+      cout << "would you like to pick up: " << (*it) << "(Y/N)" << endl;
       cin >> answer;
-      if(strcmp(answer, "Y") == 0){
+      if(strcmp(answer, "Y") == 0){//put it in the inventory and remove it from the room
 	inventory.push_back((*it));
         currRoom->getItems()->erase(it);
 	break;
@@ -119,27 +125,47 @@ int main(){
 	cout << "leave the room and come back to attempt to pick it up again" << endl;
       }
     }
-    if(inventory.size() > 0){
+    if(inventory.size() == 5){//win condition
+      cout << "congratulations you have won by picking up all 5 items" << endl;
+      break;
+    }
+    if(inventory.size() > 0){//checking if the user would like to drop their items
       char drop[80];
       curPos = -1;
-      for(vector<char*>::iterator it = inventory.begin(); it < inventory.end(); it++){
+      for(vector<char*>::iterator it = inventory.begin(); it != inventory.end(); it++){
 	curPos++;
 	cout << "would you like to drop your " << *it << "? (Y/N)" << endl;
 	cin>> drop;
 	if(strcmp(drop, "Y") == 0){
 	  currRoom->getItems()->push_back(*it);
 	  inventory.erase(it);
+	  break;
+	}else if(strcmp(drop, "N") == 0){
+	  continue;
+	}else{
+	  cout << "make sure you type 'Y' or 'N'" << endl;
 	}
       }
     }
+
+    //printing out the exits of the room
     cout << "Exits are: " << endl;
     for(map<const char*, Room*>::iterator it  = currRoom->getMap()->begin(); it != currRoom->getMap()->end(); it++){
       cout <<it->first << ", " << it->second->getName() << endl;
     }
+    cout << "you can type QUIT to quit as well" << endl;
     cout << "where would you like to go?" << endl;
     cin >> nextDir;
-    
-    
+    //prompt the user for what direction they'd like to go in or if they'd like to quit
+    for(map<const char*, Room*>::iterator it = currRoom->getMap()->begin(); it != currRoom->getMap()->end(); it++){
+      if(strcmp(it->first, nextDir) == 0){
+	currRoom = it->second;
+	break;
+      }
+    }
+    if(strcmp(nextDir, "QUIT") == 0){
+      keepGoing = false;
+    }
   }
   return 0;
 }
