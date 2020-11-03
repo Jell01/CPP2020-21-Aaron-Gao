@@ -24,14 +24,14 @@ void Student::setID(int newID){//sets the id of a student
   id = newID;
 }
 
-int Student::getID(){//returns the student ID
-  return id;
+int* Student::getID(){//returns the student ID
+  return &id;
 }
 
 void Student::setGPA(float newGPA){
   gpa = newGPA;
 }
 
-float Student::getGPA(){
-  return gpa;
+float* Student::getGPA(){
+  return &gpa;
 }

@@ -15,9 +15,9 @@ class Student{
   void setLastName(const char* newLast);
   char* getLastName();
   void setID(int newID);
-  int getID();
+  int* getID();
   void setGPA(float newGPA);
-  float getGPA();
+  float* getGPA();
   
  private:
   //initialization
